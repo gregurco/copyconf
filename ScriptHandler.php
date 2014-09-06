@@ -3,6 +3,7 @@
 namespace Gregurco\ParameterHandler;
 
 use Composer\Script\Event;
+use Composer\IO\IOInterface;
 
 class ScriptHandler
 {
@@ -21,7 +22,9 @@ class ScriptHandler
         }
 
         foreach ($configs['files'] as $k => $file){
-            copy($file . '.dist', $file);
+            if (file_exists($file) && $event->getIO()->askConfirmation(sprintf('File %s exists. Override? (y/n): ', $file)) == 'y'){
+                copy($file . '.dist', $file);
+            }
         }
     }
 }
