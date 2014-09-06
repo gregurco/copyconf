@@ -41,8 +41,14 @@ class ScriptCore
         foreach ($this->configs['files'] as $k => $file){
             if (!file_exists($file . $this->dist_ext)){
                 $this->event->getIO()->write(sprintf('  File was not found: %s', $file . $this->dist_ext));
-            }elseif (!file_exists($file) || $this->event->getIO()->askConfirmation(sprintf(' File %s exists. Override? (y/n): ', $file)) == 'y'){
-                copy($file . $this->dist_ext, $file);
+            }elseif (!file_exists($file) || $this->event->getIO()->askConfirmation(sprintf('  File %s exists. Override? (y/n): ', $file)) == 'y'){
+                if (copy($file . $this->dist_ext, $file)){
+                    $this->event->getIO()->write(sprintf('  Overriding file %s success', $file));
+                }else{
+                    $this->event->getIO()->write(sprintf('  Overriding file %s error', $file));
+                }
+            }else{
+                $this->event->getIO()->write(sprintf('  Overriding file %s skipped', $file));
             }
         }
     }
