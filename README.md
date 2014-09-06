@@ -28,3 +28,8 @@ Add the following in your root composer.json file:
     }
 }
 ```
+
+## Configuration
+List of copyconf parameters:
+- **files**    - array  - array of files, that should be processed
+- **dist_ext** - string - extension of files that should be processed (.dist - default)
