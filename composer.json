@@ -1,0 +1,17 @@
+{
+    "name": "gregurco/copyconf",
+    "description": "Composer script handling your ignored parameter file",
+    "keywords": ["parameters management"],
+    "homepage": "https://github.com/gregurco/copyconf",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gregurco Vladislav",
+            "email": "gregurco.vlad@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "Gregurco\\ParameterHandler": "" }
+    },
+    "target-dir": "Gregurco/ParameterHandler"
+}
