@@ -38,18 +38,22 @@ class ScriptCore
 
     public function processFiles(){
         $this->event->getIO()->write('CopyConf log:');
-        foreach ($this->configs['files'] as $k => $file){
-            if (!file_exists($file . $this->dist_ext)){
-                $this->event->getIO()->write(sprintf('  File was not found: %s', $file . $this->dist_ext));
-            }elseif (!file_exists($file) || $this->event->getIO()->askConfirmation(sprintf('  File %s exists. Override? (y/n): ', $file)) == 'y'){
-                if (copy($file . $this->dist_ext, $file)){
-                    $this->event->getIO()->write(sprintf('  Overriding file %s success', $file));
+        if (isset($this->configs['files']) && count($this->configs['files'])){
+            foreach ($this->configs['files'] as $k => $file){
+                if (!file_exists($file . $this->dist_ext)){
+                    $this->event->getIO()->write(sprintf('  File was not found: %s', $file . $this->dist_ext));
+                }elseif (!file_exists($file) || $this->event->getIO()->askConfirmation(sprintf('  File %s exists. Override? (y/n): ', $file)) == 'y'){
+                    if (copy($file . $this->dist_ext, $file)){
+                        $this->event->getIO()->write(sprintf('  Overriding file %s success', $file));
+                    }else{
+                        $this->event->getIO()->write(sprintf('  Overriding file %s error', $file));
+                    }
                 }else{
-                    $this->event->getIO()->write(sprintf('  Overriding file %s error', $file));
+                    $this->event->getIO()->write(sprintf('  Overriding file %s skipped', $file));
                 }
-            }else{
-                $this->event->getIO()->write(sprintf('  Overriding file %s skipped', $file));
             }
+        }else{
+            $this->event->getIO()->write('  Notice: nothing to process. Try to define array "files" in "copyconf-parameters in root composer.json" ');
         }
     }
 }
