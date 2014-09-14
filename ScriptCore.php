@@ -15,6 +15,8 @@ class ScriptCore
 
     private $dist_ext = '.dist';
 
+    private $reg_exp = '/{{(.*?)}}/';
+
     function __construct(Event $event){
         $this->event = $event;
         $this->extras = $event->getComposer()->getPackage()->getExtra();
@@ -31,8 +33,10 @@ class ScriptCore
             throw new \InvalidArgumentException('The extra.copyconf-parameters setting must be an array or a configuration object.');
         }
 
-        if (isset($this->configs['dist_ext']) && !empty($this->configs['dist_ext'])){
-            $this->dist_ext = $this->configs['dist_ext'];
+        foreach (array('dist_ext', 'reg_exp') as $var){
+            if (isset($this->configs[$var]) && !empty($this->configs[$var])){
+                $this->$var = $this->configs[$var];
+            }
         }
     }
 
@@ -62,7 +66,7 @@ class ScriptCore
 
         $file_content = file_get_contents($file . $this->dist_ext);
 
-        preg_match_all('/{{(.*?)}}/', $file_content, $res);
+        preg_match_all($this->reg_exp, $file_content, $res);
 
         if (count($res[0])){
             foreach (array_unique($res[0]) as $v){
