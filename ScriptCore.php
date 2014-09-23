@@ -68,10 +68,21 @@ class ScriptCore
 
         preg_match_all($this->reg_exp, $file_content, $res);
 
-        if (count($res[0])){
-            foreach (array_unique($res[0]) as $v){
-                $answer = $this->event->getIO()->ask(sprintf('  Value of %s: ', $v), '');
-                $file_content = str_replace($v, $answer, $file_content);
+        if (count($res[1])){
+            $res[0] = array_unique($res[0]);
+            $res[1] = array_unique($res[1]);
+
+            foreach ($res[1] as $k => $v){
+                if (strpos($v, '|') !== false){
+                    $ph = explode('|', $v);
+                    $answer = $this->event->getIO()->ask(sprintf('  Value of %s (%s): ', $ph[0], $ph[1]), '');
+                    if (!$answer){
+                        $answer = $ph[1];
+                    }
+                }else {
+                    $answer = $this->event->getIO()->ask(sprintf('  Value of %s: ', $v), '');
+                }
+                $file_content = str_replace($res[0][$k], $answer, $file_content);
             }
         }
 
