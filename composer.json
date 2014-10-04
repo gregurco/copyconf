@@ -1,13 +1,18 @@
 {
     "name": "gregurco/copyconf",
     "description": "Composer script handling your ignored parameter file",
-    "keywords": ["parameters management"],
+    "keywords": ["parameters management", "yii", "config"],
+    "type": "yii-extension",
     "homepage": "https://github.com/gregurco/copyconf",
+    "support": {
+        "issues": "https://github.com/gregurco/copyconf/issues"
+    },
     "license": "MIT",
     "authors": [
         {
-            "name": "Gregurco Vladislav",
-            "email": "gregurco.vlad@gmail.com"
+            "name":     "Gregurco Vladislav",
+            "email":    "gregurco.vlad@gmail.com",
+            "homepage" :"https://github.com/gregurco"
         }
     ],
     "require": {
