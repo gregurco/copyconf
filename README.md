@@ -51,8 +51,8 @@ Example of "extra" with backup:
             "files": {
                 "main_config": "protected/config/config.php"
             },
-            "backup_mode": "ask",     // or "true"
-            "backup_dir" : "backup/"  // directory with permission to write
+            "backup_mode": "ask",
+            "backup_dir" : "backup/"
         }
     }
 }
