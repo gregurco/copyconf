@@ -9,7 +9,7 @@ Add the following in your root composer.json file:
 ```json
 {
     "require": {
-        "gregurco/copyconf": "v1.0"
+        "gregurco/copyconf": "v1.1"
     },
     "scripts": {
         "post-install-cmd": [
